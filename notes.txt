@@ -1,0 +1,38 @@
+SELECT primarytitle,primaryname,startyear FROM basics JOIN principals ON basics.tconst=principals.tconst JOIN namebasics ON principals.nconst=namebasics.nconst JOIN ratings ON basics.tconst=ratings.tconst WHERE principals.category IN ('actor','actress') AND startyear > 1990 AND numvotes > 500000 AND ordering = 1 ORDER BY RANDOM() LIMIT 2;
+
+Python 3.8.10 (tags/v3.8.10:3d8993a, May  3 2021, 11:48:03) [MSC v.1928 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> import psycopg2
+>>> conn = psycopg2.connect(dbname="IMDB",user="postgres")
+>>> cur = conn.cursor()
+>>> cur.execute("SELECT * FROM basics LIMIT 10;")
+>>> cur.fetchone()
+('tt0756683', 'movie', 'The Man from Earth', 'The Man from Earth', False, 2007, None, 87, 'Drama,Fantasy,Mystery')
+>>> cur.fetchmany(size=2)
+[('tt0758730', 'movie', 'Aliens vs. Predator: Requiem', 'AVPR: Aliens vs Predator - Requiem', False, 2007, None, 94, 'Action,Adventure,Horror'), ('tt0758746', 'movie', 'Friday the 13th', 'Friday the 13th', False, 2009, None, 97, 'Horror,Mystery,Thriller')]
+>>> cur.execute("SELECT primarytitle,startyear FROM basics LIMIT 2;")
+>>> cur.fetchmany(size=2)
+[('Brothers', 2009), ('American Gangster', 2007)]
+>>> newlist = cur.fetchmany(size=2)
+>>> newlist.0
+SyntaxError: invalid syntax
+>>> newlist
+[]
+>>> cur.execute("SELECT primarytitle,startyear FROM basics LIMIT 2;")
+>>> newlist = cur.fetchmany(size=2)
+>>> newlist
+[('Brothers', 2009), ('American Gangster', 2007)]
+>>> newlist[1]
+('American Gangster', 2007)
+>>> newlist[0]
+('Brothers', 2009)
+>>> newlist[0](0)
+Traceback (most recent call last):
+  File "<pyshell#16>", line 1, in <module>
+    newlist[0](0)
+TypeError: 'tuple' object is not callable
+>>> newlist[0][0]
+'Brothers'
+>>> newlist[0][1]
+2009
+>>> 
