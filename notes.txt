@@ -36,3 +36,8 @@ TypeError: 'tuple' object is not callable
 >>> newlist[0][1]
 2009
 >>> 
+
+
+if positive, 2 is first
+if negative, 1 is first
+if same, pull again
