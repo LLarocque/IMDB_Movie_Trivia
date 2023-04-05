@@ -25,9 +25,9 @@ def gen_releasedate_question(reldate_consts):
     tconst2 = reldate_consts[random_indices[1]][0]
 
     #Pull data from our table using the selected title constants
-    cur.execute(f"SELECT primarytitle,primaryname,startyear FROM basics JOIN principals ON basics.tconst=principals.tconst JOIN namebasics ON principals.nconst=namebasics.nconst JOIN ratings ON basics.tconst=ratings.tconst WHERE basics.tconst='{tconst1}' AND ordering=1 LIMIT 1;")
+    cur.execute(f"SELECT primarytitle,primaryname,startyear FROM basics JOIN principals ON basics.tconst=principals.tconst JOIN namebasics ON principals.nconst=namebasics.nconst WHERE basics.tconst='{tconst1}' AND ordering=1 LIMIT 1;")
     title_actor_year1 = cur.fetchall()
-    cur.execute(f"SELECT primarytitle,primaryname,startyear FROM basics JOIN principals ON basics.tconst=principals.tconst JOIN namebasics ON principals.nconst=namebasics.nconst JOIN ratings ON basics.tconst=ratings.tconst WHERE basics.tconst='{tconst2}' AND ordering=1 LIMIT 1;")
+    cur.execute(f"SELECT primarytitle,primaryname,startyear FROM basics JOIN principals ON basics.tconst=principals.tconst JOIN namebasics ON principals.nconst=namebasics.nconst WHERE basics.tconst='{tconst2}' AND ordering=1 LIMIT 1;")
     title_actor_year2 = cur.fetchall()
 
     #Compare release dates
