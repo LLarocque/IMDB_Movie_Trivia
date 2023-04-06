@@ -1,10 +1,9 @@
 # Movie Trivia by Logan Larocque
 
-
 import random
+import psycopg2
 
 #connect to PSQL
-import psycopg2
 conn = psycopg2.connect(dbname="IMDB",user="postgres")
 cur = conn.cursor()
 
@@ -70,3 +69,7 @@ while not again == 0:
         question_number += 1
     correct_ans = 0
     print(f" \n Your score is {score} out of {question_number}!")
+
+print(" \n Thanks for playing!")
+cur.close()
+conn.close()
